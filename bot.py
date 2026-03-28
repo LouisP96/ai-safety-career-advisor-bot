@@ -23,7 +23,7 @@ conversations = {}
 active_threads = set()
 
 MAX_HISTORY = 20  # keep last 10 exchanges (20 messages)
-MODEL = "gemini-2.5-flash"
+MODEL = "gemini-2.5-pro"
 MAX_TOKENS = 1500
 
 
