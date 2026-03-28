@@ -182,6 +182,17 @@ async def on_message(message):
     if message.author == bot.user:
         return
 
+    # DMs — reply directly, no threads needed
+    if isinstance(message.channel, discord.DMChannel):
+        try:
+            async with message.channel.typing():
+                reply = await get_response(message.channel.id, message.content)
+            await send_reply(message.channel, reply)
+        except Exception as e:
+            print(f"Error in DM reply: {e}")
+            await message.channel.send(f"Sorry, something went wrong: {e}")
+        return
+
     # If this message is in an active thread, auto-reply (no @ needed)
     if message.channel.id in active_threads:
         try:
