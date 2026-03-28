@@ -23,8 +23,8 @@ conversations = {}
 active_threads = set()
 
 MAX_HISTORY = 20  # keep last 10 exchanges (20 messages)
-MODEL = "gemini-2.5-pro"
-MAX_TOKENS = 8000
+MODEL = "gemini-2.5-flash"
+MAX_TOKENS = 1500
 
 
 async def get_response(thread_id: int, message_content: str) -> str:
@@ -50,10 +50,6 @@ async def get_response(thread_id: int, message_content: str) -> str:
     )
 
     reply = response.text
-    if not reply:
-        print(f"Empty response. Finish reason: {response.candidates[0].finish_reason}")
-        print(f"Full response: {response}")
-        reply = "Sorry, I got an empty response. Please try again."
     conversations[thread_id].append({"role": "assistant", "content": reply})
     return reply
 
