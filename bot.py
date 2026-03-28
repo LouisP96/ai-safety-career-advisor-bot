@@ -12,15 +12,9 @@ intents.message_content = True
 bot = discord.Bot(intents=intents)
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
-# Load system prompt + shallow review context
+# Load system prompt
 prompt_path = Path(__file__).parent / "system_prompt.txt"
-context_path = Path(__file__).parent / "shallow_review_context.md"
-
 system_prompt = prompt_path.read_text()
-if context_path.exists():
-    system_prompt += "\n" + context_path.read_text()
-else:
-    print(f"WARNING: {context_path} not found. Bot will run without shallow review context.")
 
 # Conversation history keyed by thread ID (one conversation per thread)
 conversations = {}
